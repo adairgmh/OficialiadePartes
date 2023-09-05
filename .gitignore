@@ -11,6 +11,7 @@ env/
 venv/
 .env
 entvirt/
+aenv/
 
 # Ignorar archivos y carpetas generados por IDEs y editores de texto
 .idea/

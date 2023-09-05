@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <title>Seguimiento de oficios</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://raw.githack.com/StartBootstrap/startbootstrap-freelancer/master/dist/css/styles.css" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    
+<body>
+
+
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Home' %}">Oficialia de partes</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded">{{ user.username }} - {{user.area}}</a></li>
+
+                    <li class="nav-item mx-0 mx-lg-3">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'logout' %}">Cerrar Sesion</a>
+                    </li>
+                    {% else %}
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <p class="" style="margin: 100px;"></p>
+    <h1>
+        <center>Seguimiento de Oficio</center>
+    </h1>
+    <table id="example" class="table table-striped table-bordered" style="overflow-x:auto;">
+        
+
+        <thead>
+            <h3>{{ title }}</h3>
+            <tr>
+                <th>Folio</th>
+                <th>Area</th>
+                <th>Tipo</th>
+                <th>Prioridad</th>
+                <th>Fecha recibido</th>
+                <th>Fecha oficio</th>
+                <th>Procedencia</th>
+                <th>Dependencia</th>
+                <th>Asunto</th>
+                <th>Lugar</th>
+                <th>Solicitante</th>
+                <th>Telefono</th>
+                <th>Recibio</th>
+                <th>Observaciones</th>
+                <th>Archivo</th>
+                <th>Estatus</th>
+                <th>Respuesta</th>
+                
+               
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for c in object_list %}
+            <tr>
+                <td> {{c.folio}} {{c.id}}</td>
+                <td>{{c.area}}</td>
+                <td>{{c.tipo}}</td>
+                <td>{{c.prioridad}}</td>
+                <td>{{c.fechar}}</td>
+                <td>{{c.fechao}}</td>
+                <td>{{c.procedencia}}</td>
+                <td>{{c.dependencia}}</td>
+                <td>{{c.asunto}}</td>
+                <td>{{c.lugar}}</td>
+                <td>{{c.solicitante}}</td>
+                <td>{{c.telefono}}</td>
+                <td>{{c.recibio}}</td>
+                <td>{{c.observaciones}}</td>
+                <!-- código JS propìo 
+                <td><a download href="media/{{c.file}}">Archivo</a></td>
+                    -->
+                <td><a class="btn btn-primary" href="{% url 'download' pk=c.pk %}" role="button" target="_blank">PDF</a></td>
+                
+                {% if c.status %}
+                <td> <a class="badge badge-success" href="respuesta/{{c.id}} ">Atendido</a> </td>
+                {%else%}
+                <td><a class="badge badge-warning" href="respuesta/{{c.id}} " role="button">Pendiente</a></td>
+                {% endif %}
+
+                {% if c.respuesta %}
+                <td><a class="btn btn-primary" href="respuestas/{{c.respuesta}}" role="button" target="_blank">PDF</a></td>
+                {%else%}
+                <td></td>
+                {% endif %}
+                
+            </tr>
+           
+            
+            {% endfor %}
+        </tfoot>
+    </table>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ <!-- jQuery, Popper.js, Bootstrap JS -->
+ <script src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
+ <script src="{% static 'popper/popper.min.js' %}"></script>
+ <script src="{% static 'bootstrap/js/bootstrap.min.js'  %}"></script>
+   
+ <!-- datatables JS -->
+ <script type="text/javascript" src="{% static 'datatables/datatables.min.js'  %}"></script>
+  
+ <!-- para usar botones en datatables JS -->  
+ <script src="{% static 'datatables/Buttons-1.5.6/js/dataTables.buttons.min.js' %}"></script>
+ <script src="{% static 'datatables/JSZip-2.5.0/jszip.min.js' %}"></script>
+ <script src="{% static 'datatables/pdfmake-0.1.36/pdfmake.min.js' %}"></script>
+ <script src="{% static 'datatables/pdfmake-0.1.36/vfs_fonts.js' %}"></script>
+ <script src="{% static 'datatables/Buttons-1.5.6/js/buttons.html5.min.js' %}"></script>
+  
+ <!-- código JS propìo-->    
+ <script type="text/javascript" src="{% static 'main.js' %}"></script>
+</body>
+</html>

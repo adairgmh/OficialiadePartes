@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Registro de oficio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link href="https://raw.githack.com/StartBootstrap/startbootstrap-freelancer/master/dist/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Home' %}">Oficialia de partes</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded">{{ user.username }} - {{user.area}}</a></li>
+                    
+                    <li class="nav-item mx-0 mx-lg-1">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'logout' %}">Cerrar Sesion</a>
+                    </li>
+                    {% else %}
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    </nav>
+    <br>
+    <br>
+    <p class="" style="margin: 100px;"></p>
+    <h1>
+        <center>Registro de Oficio</center>
+    </h1>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+      </symbol>
+    {% if messages %}
+    {% for message in messages %}
+     {% if message.tags %}  
+     <div class="alert alert-success d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+      <div>
+        {{message}}
+      </div>
+    </div> {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+
+
+
+    <div class="container">
+        <form action="#" method="POST" enctype="multipart/form-data"> 
+          {% csrf_token %}
+
+            <br>
+            <br>
+
+            <div class="row">
+              <div class="col">
+                <label for="exampleFormControlSelect1">Seleccionar área de atención</label>
+                {{ form.area }}
+              </div>
+             <div class="col">
+                <label for="exampleFormControlSelect1">Tipo</label>
+                {{ form.tipo }}
+              </div>
+              
+               <div class="col">
+                <label for="exampleFormControlSelect1">Procedencia: </label>
+                {{form.procedencia}}
+              </div>
+
+              <div class="col">
+                <label for="exampleFormControlSelect1">Prioridad</label>
+                {{ form.prioridad }}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="start">Fecha de recibido:</label> 
+                   {{form.fechar}}
+                </div>
+
+                <div class="col-md-3">
+                    <label for="start">Fecha de oficio:</label>
+                    {{form.fechao}}
+                </div>
+
+
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="formGroupExampleInput">Dependencia</label>
+                    {{form.dependencia}}
+                </div>
+          
+                <div class="col">
+                    <label for="formGroupExampleInput">Solicitante</label>
+                    {{form.solicitante}}
+                </div>
+
+                <div class="col">
+                    <label for="formGroupExampleInput">Lugar</label>
+                    {{form.lugar}}
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="formGroupExampleInput">Asunto</label>
+                    {{form.asunto}}
+                  </div>
+
+                  <div class="col">
+                    <label for="formGroupExampleInput">Telefono</label>
+                    {{form.telefono}}
+                  </div>
+
+                  <div class="col">
+                    <label for="formGroupExampleInput">Recibio</label>
+                    {{form.recibio}}
+                  </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="exampleFormControlTextarea1">Observaciones</label>
+                    {{form.observaciones}}
+                  </div>
+            </div>
+            <br>
+      
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="custom-file">
+                    <label class="" for="customFile">Selecciona el oficio en formato PDF</label>
+                    {{form.file}}
+                  </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div>
+                    <button class="btn btn-primary" type="submit" value="upload">Enviar</button>
+                  </div>
+
+          </form>
+    </div>
+
+</body>
+</html>
+
+<script src="main.js"></script>
